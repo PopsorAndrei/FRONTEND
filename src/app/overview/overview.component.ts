@@ -1,25 +1,23 @@
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Optional } from '@angular/core';
-import { Employee } from './employee';
-import { EmployeeService } from './employee.service';
+import { Employee } from '../employee';
+import { EmployeeService } from '../employee.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, NgForm } from '@angular/forms';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-overview',
+  templateUrl: `./overview.component.html`,
+  styles: [
+  ]
 })
-export class AppComponent implements OnInit{
-
+export class OverviewComponent implements OnInit {
   title = 'FINAL';
   public employees!:Employee[];
   closeResult!: string;
   public editEmployee!: Employee;
   public deleteEmployee!: Employee;
-
-  exForm!: FormGroup;
 
 
   constructor(private employeeService : EmployeeService,
@@ -126,8 +124,8 @@ export class AppComponent implements OnInit{
     );
   }
   
-  public onDeleteEmloyee(employeeId: number ): void {
-
+  public onDeleteEmloyee(employeeId: number |undefined): void {
+if(employeeId)
     this.employeeService.deleteEmployee(employeeId).subscribe(
       (response: void) => {
         console.log(response);
@@ -138,6 +136,7 @@ export class AppComponent implements OnInit{
       }
     );
   }
+
 
 
 }
