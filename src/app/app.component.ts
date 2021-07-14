@@ -63,9 +63,9 @@ export class AppComponent implements OnInit{
     if(mode === 'edit'){
       this.editEmployee = employee;
       button.setAttribute('data-target','#updateEmployeeModal')
-      
     }
-                          }
+    
+    }
 
 
     if(mode === 'add'){
