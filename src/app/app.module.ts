@@ -3,14 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { EmployeeService } from './employee.service';
+import { EmployeeService } from './service/employee.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
-import { OverviewComponent } from './overview/overview.component';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
-import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+
+import { AddEmployeeComponent } from './pages/add-employee/add-employee.component';
+import { EditEmployeeComponent } from './pages/edit-employee/edit-employee.component';
+import { OverviewComponent } from './pages/overview/overview.component';
+
 
 @NgModule({
   declarations: [

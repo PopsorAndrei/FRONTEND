@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Optional } from '@angular/core';
-import { Employee } from './employee';
-import { EmployeeService } from './employee.service';
+import { Employee } from './model/employee';
+import { EmployeeService } from './service/employee.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
