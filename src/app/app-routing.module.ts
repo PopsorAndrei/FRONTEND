@@ -8,9 +8,8 @@ import { OverviewComponent } from './overview/overview.component';
 
 const routes: Routes = [
   {path: '', component: OverviewComponent},
-  {path: 'add-employee', component :AddEmployeeComponent},
-  {path: 'edit-employee/:id', component : EditEmployeeComponent },
- 
+  {path: 'add-employee', component :AddEmployeeComponent}, //path =add-employee
+  {path: 'employees/:id', component : EditEmployeeComponent },
 ];
 
 @NgModule({

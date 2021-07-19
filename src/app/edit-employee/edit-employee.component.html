@@ -10,28 +10,28 @@
                    <form #editForm="ngForm">
                       <div class="form-group">
                          <label for="name">Name</label>
-                         <input type="text" value="{{editEmployee?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+                         <input *ngIf="editEmployee" type="text" [(ngModel)]="editEmployee.name" value="{{editEmployee?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
                       </div>
-                      <input type="hidden" value="{{editEmployee?.id}}" name="id" class="form-control" id="id" placeholder="Email">
-                      <input type="hidden" value="{{editEmployee?.employeeCode}}" name="userCode" class="form-control" id="userCode" placeholder="Email">
+                      <input *ngIf="editEmployee" [(ngModel)]="editEmployee.id" type="hidden" ngModel value="{{editEmployee?.id}}" name="id" class="form-control" id="id" placeholder="Email">
+                      <input *ngIf="editEmployee" [(ngModel)]="editEmployee.employeeCode" type="hidden" ngModel value="{{editEmployee?.employeeCode}}" name="userCode" class="form-control" id="userCode" placeholder="Email">
                       <div class="form-group">
                          <label for="email">Email Address</label>
-                         <input type="email" value="{{editEmployee?.email}}" name="email" class="form-control" id="email" placeholder="Email">
+                         <input *ngIf="editEmployee" [(ngModel)]="editEmployee.email" type="email" ngModel value="{{editEmployee?.email}}" name="email" class="form-control" id="email" placeholder="Email">
                       </div>
                       <div class="form-group">
                          <label for="phone">Job title</label>
-                         <input type="text" value="{{editEmployee?.jobTitle}}" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
+                         <input *ngIf="editEmployee" [(ngModel)]="editEmployee.jobTitle" type="text" ngModel value="{{editEmployee?.jobTitle}}" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
                       </div>
                       <div class="form-group">
                          <label for="phone">Phone</label>
-                         <input type="text" value="{{editEmployee?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
+                         <input *ngIf="editEmployee" [(ngModel)]="editEmployee.phone" type="text" ngModel value="{{editEmployee?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
                       </div>
                       <div class="form-group">
                          <label for="phone">Image URL</label>
-                         <input type="text" value="{{editEmployee?.imageURL}}" name="imageURL" class="form-control" id="imageURL" placeholder="Image URL">
+                         <input *ngIf="editEmployee" [(ngModel)]="editEmployee.imageURL" type="text" ngModel value="{{editEmployee?.imageURL}}" name="imageURL" class="form-control" id="imageURL" placeholder="Image URL">
                       </div>
                       <div class="modal-footer">
-                        <button (click)="onUpdateEmloyee(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                        <button (click)="onUpdateEmloyee(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
                         <a href="/"> BACK</a>
                       </div>
                    </form> 

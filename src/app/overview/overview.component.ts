@@ -93,22 +93,6 @@ export class OverviewComponent implements OnInit {
 
 
 
-  public onUpdateEmloyee(employee : Employee): void {
-
-   
-    this.employeeService.updateEmployee(employee).subscribe(
-      (response: Employee) => {
-        console.log(response);
-        this.getEmployees();
-      
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      
-      }
-    );
-  }
-
   public onAddEmloyee(addForm: NgForm): void {
     document.getElementById('add-employee-form')!.click();
     this.employeeService.addEmployee(addForm.value).subscribe(

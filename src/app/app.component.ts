@@ -4,6 +4,7 @@ import { Employee } from './employee';
 import { EmployeeService } from './employee.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,15 +19,19 @@ export class AppComponent implements OnInit{
   closeResult!: string;
   public editEmployee!: Employee;
   public deleteEmployee!: Employee;
+  public idForUpdate!: number;
 
   exForm!: FormGroup;
 
 
   constructor(private employeeService : EmployeeService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,private route:ActivatedRoute) { }
 
   ngOnInit(){
     this.getEmployees();
+    this.route.params.subscribe(params =>{
+      this.idForUpdate = params['id'];
+    });
   }
 
   public getEmployees() :void{
@@ -95,21 +100,7 @@ export class AppComponent implements OnInit{
 
 
 
-  public onUpdateEmloyee(employee : Employee): void {
 
-   
-    this.employeeService.updateEmployee(employee).subscribe(
-      (response: Employee) => {
-        console.log(response);
-        this.getEmployees();
-      
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      
-      }
-    );
-  }
 
   public onAddEmloyee(addForm: NgForm): void {
     document.getElementById('add-employee-form')!.click();
@@ -139,5 +130,21 @@ export class AppComponent implements OnInit{
     );
   }
 
+  public onUpdateEmloyee(employee : Employee): void {
+
+    console.log(employee);
+    this.employeeService.updateEmployee(this.idForUpdate,employee).subscribe(
+      (response: Employee) => {
+        console.log(response);
+        console.log("AICI0");
+        this.getEmployees();
+      
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      
+      }
+    );
+  }
 
 }
