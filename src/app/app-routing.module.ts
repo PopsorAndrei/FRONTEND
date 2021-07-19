@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
-import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+import { AddEmployeeComponent } from './pages/add-employee/add-employee.component';
+import { EditEmployeeComponent } from './pages/edit-employee/edit-employee.component';
 import { RouterModule, Routes } from '@angular/router';
-import { OverviewComponent } from './overview/overview.component';
+import { OverviewComponent } from './pages/overview/overview.component';
+
+
 
 
 const routes: Routes = [
-  {path: '', component: OverviewComponent},
-  {path: 'add-employee', component :AddEmployeeComponent}, //path =add-employee
-  {path: 'employees/:id', component : EditEmployeeComponent },
-];
+  { path: '', redirectTo: 'overview', pathMatch: 'full' },
+  { path: 'overview', component: OverviewComponent },
+  { path: 'edit/:id', component: EditEmployeeComponent },
+  { path: 'add', component: AddEmployeeComponent }
+ ];
 
 @NgModule({
   declarations: [],

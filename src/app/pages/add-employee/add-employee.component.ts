@@ -1,18 +1,21 @@
-
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Optional } from '@angular/core';
-import { Employee } from '../employee';
-import { EmployeeService } from '../employee.service';
+import { Employee } from '../../model/employee';
+import { EmployeeService } from '../../service/employee.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgForm } from '@angular/forms';
+import { NgForm, ReactiveFormsModule , } from '@angular/forms';
+
+
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: `./overview.component.html`,
+  selector: 'app-add-employee',
+  templateUrl: './add-employee.component.html',
   styles: [
   ]
 })
-export class OverviewComponent implements OnInit {
+export class AddEmployeeComponent implements OnInit {
+
+
   title = 'FINAL';
   public employees!:Employee[];
   closeResult!: string;
@@ -93,6 +96,8 @@ export class OverviewComponent implements OnInit {
 
 
 
+
+
   public onAddEmloyee(addForm: NgForm): void {
     document.getElementById('add-employee-form')!.click();
     this.employeeService.addEmployee(addForm.value).subscribe(
@@ -108,8 +113,8 @@ export class OverviewComponent implements OnInit {
     );
   }
   
-  public onDeleteEmloyee(employeeId: number |undefined): void {
-if(employeeId)
+  public onDeleteEmloyee(employeeId: number ): void {
+
     this.employeeService.deleteEmployee(employeeId).subscribe(
       (response: void) => {
         console.log(response);
@@ -120,7 +125,5 @@ if(employeeId)
       }
     );
   }
-
-
 
 }
