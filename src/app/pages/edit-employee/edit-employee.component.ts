@@ -21,8 +21,6 @@ export class EditEmployeeComponent implements OnInit {
   public deleteEmployee!: Employee;
   public idForUpdate!: number;
 
-
-
   constructor(private employeeService : EmployeeService,
               private route:ActivatedRoute) { }
 
@@ -64,45 +62,7 @@ export class EditEmployeeComponent implements OnInit {
 
 
 
-  public onOpenModal(employee: Employee|null, mode: string) :void{
-
-    console.log(employee);
-    console.log(mode);
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display='none';
-    button.setAttribute('data-toggle','modal')
-
-    if(employee !== null){
-    if(mode === 'add'){
-      button.setAttribute('data-target','#addEmployeeModal')
-    }
-
-    if(mode === 'delete'){
-      this.deleteEmployee = employee;
-      button.setAttribute('data-target','#deleteEmployeeModal')
-    }
-
-    if(mode === 'edit'){
-      this.editEmployee = employee;
-      button.setAttribute('data-target','#updateEmployeeModal')
-      
-    }
-                          }
-
-
-    if(mode === 'add'){
-      button.setAttribute('data-target','#addEmployeeModal')
-    }
-    container?.appendChild(button);
-    button.click();}
-
   
-  
-
-
-
 
   public onUpdateEmloyee(employee : any): void {
 
@@ -123,33 +83,6 @@ export class EditEmployeeComponent implements OnInit {
     );
   }
 
-  public onAddEmloyee(addForm: NgForm): void {
-    document.getElementById('add-employee-form')!.click();
-    this.employeeService.addEmployee(addForm.value).subscribe(
-      (response: Employee) => {
-        console.log(response);
-        this.getEmployees();
-        addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
-  }
-  
-  public onDeleteEmloyee(employeeId: number ): void {
-
-    this.employeeService.deleteEmployee(employeeId).subscribe(
-      (response: void) => {
-        console.log(response);
-        this.getEmployees();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
 
 
 }

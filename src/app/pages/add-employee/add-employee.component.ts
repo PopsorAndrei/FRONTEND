@@ -41,62 +41,9 @@ export class AddEmployeeComponent implements OnInit {
       );
   }
 
-  public onOpenModal(employee: Employee|null, mode: string) :void{
-
-    console.log(employee);
-    console.log(mode);
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display='none';
-    button.setAttribute('data-toggle','modal')
-
-    if(employee !== null){
-    if(mode === 'add'){
-      button.setAttribute('data-target','#addEmployeeModal')
-    }
-
-    if(mode === 'delete'){
-      this.deleteEmployee = employee;
-      button.setAttribute('data-target','#deleteEmployeeModal')
-    }
-
-    if(mode === 'edit'){
-      this.editEmployee = employee;
-      button.setAttribute('data-target','#updateEmployeeModal')
-      
-    }
-                          }
-
-
-    if(mode === 'add'){
-      button.setAttribute('data-target','#addEmployeeModal')
-    }
-    container?.appendChild(button);
-    button.click();}
+  
 
   
-  open(content:any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-
-
-
 
   public onAddEmloyee(addForm: NgForm): void {
     document.getElementById('add-employee-form')!.click();
@@ -113,17 +60,6 @@ export class AddEmployeeComponent implements OnInit {
     );
   }
   
-  public onDeleteEmloyee(employeeId: number ): void {
-
-    this.employeeService.deleteEmployee(employeeId).subscribe(
-      (response: void) => {
-        console.log(response);
-        this.getEmployees();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
+ 
 
 }
