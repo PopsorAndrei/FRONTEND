@@ -56,19 +56,14 @@ export class AppComponent implements OnInit{
     button.setAttribute('data-toggle','modal')
 
     if(employee !== null){
-    if(mode === 'add'){
-      button.setAttribute('data-target','#addEmployeeModal')
-    }
+  
 
     if(mode === 'delete'){
       this.deleteEmployee = employee;
       button.setAttribute('data-target','#deleteEmployeeModal')
     }
 
-    if(mode === 'edit'){
-      this.editEmployee = employee;
-      button.setAttribute('data-target','#updateEmployeeModal')
-    }
+    
     
     }
 
