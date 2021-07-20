@@ -1,4 +1,4 @@
-<a href="/add-employee" class="btn btn-success tooltips" data-placement="top" data-original-title="Edit">
+<a href="/add" class="btn btn-success tooltips" data-placement="top" data-original-title="Edit">
     <i class="fa fa-pencil"> ADD EMPLOYEE</i>
 </a>
 
@@ -12,7 +12,7 @@
                         <img class="thumb-lg img-circle bx-s" src="{{emp.imageURL}}" alt="">
                     </a>
                     <div class="pull-right btn-group-sm">
-                            <a [routerLink]="['employees', emp.id]" class="btn btn-success tooltips" data-placement="top"
+                            <a [routerLink]="['/edit', emp.id]" class="btn btn-success tooltips" data-placement="top"
                                 data-original-title="Edit">
                                 <i class="fa fa-pencil"></i>
                             </a>

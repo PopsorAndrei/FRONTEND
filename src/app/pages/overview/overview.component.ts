@@ -1,8 +1,6 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Optional } from '@angular/core';
-
-
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { EmployeeService } from 'src/app/service/employee.service';
