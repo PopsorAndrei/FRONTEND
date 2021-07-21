@@ -3,8 +3,8 @@ import { Component, OnInit, Optional } from '@angular/core';
 import { Employee } from '../../model/employee';
 import { EmployeeService } from '../../service/employee.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-employee',
@@ -12,15 +12,85 @@ import { ActivatedRoute } from '@angular/router';
   styles: [
   ]
 })
-export class EditEmployeeComponent implements OnInit {
-  
-  title = 'FINAL';
-  public employees!:Employee[];
-  closeResult!: string;
-  public editEmployee!: Employee;
-  public deleteEmployee!: Employee;
-  public idForUpdate!: number;
 
+export class EditEmployeeComponent implements OnInit {
+  updateForm: any;
+  currentEmployee!: Employee;
+  
+  constructor(private fb: FormBuilder,
+    private EmployeeService: EmployeeService,
+    private route: ActivatedRoute,
+    private router: Router) { }
+
+  ngOnInit(): void {
+    this.getEmployee( this.route.snapshot.paramMap.get('id'));
+
+   this.updateForm = this.fb.group({
+      name : ['', Validators.required],
+      email : ['', [Validators.required, Validators.email]],
+      jobTitle : ['', Validators.required],
+      phone : ['',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]{10}$')
+        ]
+      ],
+      imageURL :['', Validators.required],
+    });
+    
+  }
+
+  get formControls() { return this.updateForm.controls; }
+
+  public getEmployee(id:any): void{
+    this.EmployeeService.getEmployeeById(id).subscribe(data =>{
+      this.currentEmployee =data;
+      this.updateFormValues();
+      console.log(data);
+    }, error => {console.log(error);});
+  }
+
+  updateFormValues() {
+    this.updateForm.patchValue({
+    name: this.currentEmployee.name,
+    email: this.currentEmployee.email,
+    jobTitle: this.currentEmployee.jobTitle,
+    phone: this.currentEmployee.phone,
+    imageURL :this.currentEmployee.imageURL
+    });
+  }
+
+  public onSubmit(){
+    if (this.updateForm.invalid) {
+      return;
+    }
+      
+    this.updateEmployee();
+  }
+
+  goToEmployeeList(){
+    this.router.navigate(['']);
+  }
+
+  updateEmployee(): void {
+    this.currentEmployee.name=this.updateForm.value.name;
+    this.currentEmployee.email=this.updateForm.value.email;
+    this.currentEmployee.phone=this.updateForm.value.phone;
+    this.currentEmployee.jobTitle=this.updateForm.value.jobTitle;
+    this.currentEmployee.imageURL=this.updateForm.value.imageURL;
+   
+    this.EmployeeService.updateEmployee(this.currentEmployee.id, this.currentEmployee)
+    .subscribe(
+    response => {
+    console.log(response);
+    this.goToEmployeeList();
+    },
+    error => {
+    console.log(error);
+    });
+  }
+
+  /*
   constructor(private employeeService : EmployeeService,
               private route:ActivatedRoute) { }
 
@@ -84,5 +154,5 @@ export class EditEmployeeComponent implements OnInit {
   }
 
 
-
+*/
 }

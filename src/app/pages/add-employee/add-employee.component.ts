@@ -3,7 +3,8 @@ import { Component, OnInit, Optional } from '@angular/core';
 import { Employee } from '../../model/employee';
 import { EmployeeService } from '../../service/employee.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgForm, ReactiveFormsModule , } from '@angular/forms';
+import { FormBuilder, NgForm, ReactiveFormsModule , Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 
@@ -18,17 +19,58 @@ export class AddEmployeeComponent implements OnInit {
 
   title = 'FINAL';
   public employees!:Employee[];
-  closeResult!: string;
-  public editEmployee!: Employee;
-  public deleteEmployee!: Employee;
+  public addForm:any;
+
 
 
   constructor(private employeeService : EmployeeService,
-              private modalService: NgbModal) { }
+              private router :Router,
+              private fb:FormBuilder) { }
 
   ngOnInit(){
-    this.getEmployees();
+
+    this.addForm = this.fb.group({
+      name : ['', Validators.required],
+      email : ['', [Validators.required, Validators.email]],
+      jobTitle : ['', Validators.required],
+      phone : ['',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]{10}$')
+        ]
+      ],
+      ImageURL :[''],
+    });
   }
+
+  addEmployee(): void {
+    this.employeeService.addEmployee(this.addForm.value)
+    .subscribe(
+    response => {
+    console.log(response);
+    this.goToEmployeeList()
+    },
+    error => {
+    console.log(error);
+    });
+  }
+
+  public goToEmployeeList(){
+    this.router.navigate(['']);
+  }
+
+
+  get formControls() { return this.addForm.controls; }
+  
+  public onSubmit(){
+
+    if (this.addForm.invalid) {
+      return;
+    }
+    this.addEmployee();
+  }
+
+
 
   public getEmployees() :void{
     this.employeeService.getEmployees().subscribe(
@@ -45,21 +87,8 @@ export class AddEmployeeComponent implements OnInit {
 
   
 
-  public onAddEmloyee(addForm: NgForm): void {
-    document.getElementById('add-employee-form')!.click();
-    this.employeeService.addEmployee(addForm.value).subscribe(
-      (response: Employee) => {
-        console.log(response);
-        this.getEmployees();
-        addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
-  }
-  
+
+
  
 
 }
