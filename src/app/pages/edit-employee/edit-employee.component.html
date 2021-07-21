@@ -2,39 +2,65 @@
     <h1>editeaza</h1>
              <div class="modal-content">
                 <div class="modal-header">
-                   <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee {{editEmployee?.name}}</h5>
+                   <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee {{currentEmployee.name}}</h5>
                    <a href="/"> X</a>
                 </div>
                 <div class="modal-body">
                 
-                   <form #editForm="ngForm">
-                      <div class="form-group">
-                         <label for="name">Name</label>
-                         <input *ngIf="editEmployee" type="text" [(ngModel)]="editEmployee.name" value="{{editEmployee?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
-                      </div>
-                      <input *ngIf="editEmployee" [(ngModel)]="editEmployee.id" type="hidden" ngModel value="{{editEmployee?.id}}" name="id" class="form-control" id="id" placeholder="Email">
-                      <input *ngIf="editEmployee" [(ngModel)]="editEmployee.employeeCode" type="hidden" ngModel value="{{editEmployee?.employeeCode}}" name="userCode" class="form-control" id="userCode" placeholder="Email">
-                      <div class="form-group">
-                         <label for="email">Email Address</label>
-                         <input *ngIf="editEmployee" [(ngModel)]="editEmployee.email" type="email" ngModel value="{{editEmployee?.email}}" name="email" class="form-control" id="email" placeholder="Email">
-                      </div>
-                      <div class="form-group">
-                         <label for="phone">Job title</label>
-                         <input *ngIf="editEmployee" [(ngModel)]="editEmployee.jobTitle" type="text" ngModel value="{{editEmployee?.jobTitle}}" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
-                      </div>
-                      <div class="form-group">
-                         <label for="phone">Phone</label>
-                         <input *ngIf="editEmployee" [(ngModel)]="editEmployee.phone" type="text" ngModel value="{{editEmployee?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
-                      </div>
-                      <div class="form-group">
-                         <label for="phone">Image URL</label>
-                         <input *ngIf="editEmployee" [(ngModel)]="editEmployee.imageURL" type="text" ngModel value="{{editEmployee?.imageURL}}" name="imageURL" class="form-control" id="imageURL" placeholder="Image URL">
-                      </div>
-                      <div class="modal-footer">
-                        <button (click)="onUpdateEmloyee(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
-                        <a href="/"> BACK</a>
-                      </div>
-                   </form> 
+                  <form [formGroup]="updateForm" (ngSubmit) = "onSubmit()">
+    
+                     <div class="form-group">
+                         <label>Name</label>
+                         <input type="text" formControlName="name" class="form-control"
+                         [ngClass]="{ 'is-invalid':    formControls.name.errors }" />
+                         <div *ngIf="  formControls.name.errors" class="invalid-feedback">
+                         <div *ngIf="formControls.name.errors.required">Name is required</div>
+                         </div>
+                     </div>
+                 
+                     <div class="form-group">
+                         <label>Email</label>
+                         <input type="text" formControlName="email" class="form-control"
+                         [ngClass]="{ 'is-invalid':  formControls.email.errors }" />
+                         <div *ngIf="formControls.email.errors" class="invalid-feedback">
+                         <div *ngIf="formControls.email.errors.required">Email is required</div>
+                         <div *ngIf="formControls.email.errors.email">Must be a valid email address!</div>
+                         </div>
+                         </div>
+                 
+                         <div class="form-group">
+                             <label>JobTitle</label>
+                             <input type="text" formControlName="jobTitle" class="form-control"
+                             [ngClass]="{ 'is-invalid': formControls.jobTitle.errors }" />
+                             <div *ngIf=" formControls.jobTitle.errors" class="invalid-feedback">
+                             <div *ngIf="formControls.jobTitle.errors.required">jobTitle is required</div>
+                             </div>
+                             </div>
+             
+                     <div class="form-group">
+                         <label>Phone</label>
+                         <input type="text" formControlName="phone" class="form-control"
+                         [ngClass]="{ 'is-invalid': formControls.phone.errors }" />
+                         <div *ngIf="formControls.phone.errors" class="invalid-feedback">
+                         <div *ngIf="formControls.phone.errors.required">Phone is required</div>
+                         <div *ngIf="formControls.phone.errors.pattern">Phone must 10 digits.</div>
+                         </div>
+                         </div>
+                     <div class="form-group">
+                        <label>ImageURL</label>
+                        <input type="text" formControlName="imageURL" class="form-control"
+                        [ngClass]="{ 'is-invalid':  formControls.imageURL.errors }" />
+                        <div *ngIf="formControls.imageURL.errors" class="invalid-feedback">
+                        <div *ngIf="formControls.imageURL.errors.required">imageURL</div>
+   
+                        </div>
+                     </div>
+                     <br>
+                     <button class = "btn btn-success" type ="submit" [disabled]="!updateForm.valid">Submit</button><p></p>
+             
+             
+                 
+                 </form>
                 </div>
              
           

@@ -3,8 +3,10 @@ import { Component, OnInit, Optional } from '@angular/core';
 import { Employee } from './model/employee';
 import { EmployeeService } from './service/employee.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, NgForm } from '@angular/forms';
+import { FormGroup, NgForm, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
+import { Reference } from '@angular/compiler/src/render3/r3_ast';
 
 
 @Component({
@@ -25,14 +27,20 @@ export class AppComponent implements OnInit{
 
 
   constructor(private employeeService : EmployeeService,
-              private modalService: NgbModal,private route:ActivatedRoute) { }
+              private modalService: NgbModal,private route:ActivatedRoute,
+              private fb:FormBuilder) { }
 
   ngOnInit(){
     this.getEmployees();
     this.route.params.subscribe(params =>{
       this.idForUpdate = params['id'];
     });
+
+ 
+
+
   }
+
 
   public getEmployees() :void{
     this.employeeService.getEmployees().subscribe(
